@@ -1,0 +1,17 @@
+name = "birthday-edit"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = "./dist"
+
+[vars]
+# ⚠️ 部署前必须替换为随机强密码！
+#   推荐：`openssl rand -hex 32` 生成 64 位随机串
+#   或运行：`npx wrangler pages secret put JWT_SECRET` 单独管理
+JWT_SECRET = "REPLACE_ME_WITH_RANDOM_STRING_BEFORE_DEPLOY"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "birthday-edit-db"
+# ⚠️ 替换为你自己的 D1 数据库 ID：
+#   创建：`npx wrangler d1 create birthday-edit-db`
+database_id = "REPLACE_ME_WITH_YOUR_D1_DATABASE_ID"

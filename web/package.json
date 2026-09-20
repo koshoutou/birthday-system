@@ -1,0 +1,25 @@
+{
+  "name": "birthday-edit",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "lucide-vue-next": "^0.468.0",
+    "pinia": "^2.3.0",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "hono": "^4.12.18",
+    "tailwindcss": "^4.0.0",
+    "vite": "^6.0.0",
+    "wrangler": "^4.90.0"
+  }
+}

@@ -1,0 +1,48 @@
+name: Birthday Reminder
+
+# 每天北京时间 06:05 自动检查生日并发送 QQ 邮件提醒
+# GitHub Actions 的 cron 使用 UTC 时间：22:05 UTC = 次日 06:05 北京时间
+on:
+  schedule:
+    - cron: '05 22 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: '仅演练不真正发邮件（推荐先用这个测试）'
+        type: boolean
+        default: false
+      show_age:
+        description: '邮件中显示年龄'
+        type: boolean
+        default: false
+
+jobs:
+  send_birthday_reminder:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: 拉取仓库
+        uses: actions/checkout@v4
+
+      - name: 配置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖
+        run: pip install -r reminder/requirements.txt
+
+      - name: 运行生日提醒
+        env:
+          # ===== 必填：在 Settings → Secrets and variables → Actions 里配置 =====
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          # ===== 可选 =====
+          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}      # 管理员邮箱（抄送）
+          BIRTHDAYS_URL: ${{ secrets.BIRTHDAYS_URL }}  # edit 平台外链，留空则用仓库内 birthdays.txt
+          TOMORROW_NOTICE: '1'                         # 附带"明日生日预告"
+          # 手动运行时的开关
+          DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
+          SHOW_AGE: ${{ inputs.show_age && '1' || '0' }}
+        run: python reminder/birthday_reminder.py

@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+
+# 本地邮箱配置（含授权码，切勿提交）
+email.env
+.env
+birthday.log
+
+# Node
+node_modules/
+dist/
+.wrangler/
+
+# 编辑器 / 系统
+.vscode/
+.DS_Store
